@@ -1,0 +1,33 @@
+const Job = require('../models/job.model');
+const fcfs = require('../services/scheduler/fcfs');
+const sjf = require('../services/scheduler/sjf');
+const priority = require('../services/scheduler/priority');
+const calculateMetrics = require('../services/metrics.service');
+
+
+exports.runScheduler = async (req, res) => {
+    try {
+        const jobs = await Job.find();
+        const fcfsResult = fcfs(jobs);
+        const sjfResult = sjf(jobs);
+        const priorityResult = priority(jobs);
+
+        res.json({
+            fcfs: {
+                schedule: fcfsResult,
+                metrics: calculateMetrics(fcfsResult)
+            },
+            sjf: {
+                schedule: sjfResult,
+                metrics: calculateMetrics(sjfResult)
+            },
+            priority: {
+                schedule: priorityResult,
+                metrics: calculateMetrics(priorityResult)
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log('Error in scheduling jobs:');
+    }
+};
