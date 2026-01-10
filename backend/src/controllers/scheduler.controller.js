@@ -7,7 +7,7 @@ const calculateMetrics = require('../services/metrics.service');
 
 exports.runScheduler = async (req, res) => {
     try {
-        const jobs = await Job.find();
+        const jobs = await Job.find().lean();
         const fcfsResult = fcfs(jobs);
         const sjfResult = sjf(jobs);
         const priorityResult = priority(jobs);

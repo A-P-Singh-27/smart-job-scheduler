@@ -14,7 +14,7 @@ exports.createJob = async (req, res) => {
 
 exports.getJobs = async (req, res) => {
     try {
-        const jobs = await Job.find();
+        const jobs = await Job.find().lean();
         res.status(200).json(jobs);
     } catch (error) {
         res.status(500).json({ error: error.message });
