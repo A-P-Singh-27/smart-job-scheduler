@@ -1,4 +1,4 @@
-export default function ScheduleTable({ schedule }) {
+export default function ScheduleTable({ schedule, predictions, showML}) {
   return (
     <table border="1">
       <thead>
@@ -8,6 +8,7 @@ export default function ScheduleTable({ schedule }) {
           <th>Completion</th>
           <th>Waiting</th>
           <th>Turnaround</th>
+          {showML && <th>Warning</th>}
         </tr>
       </thead>
       <tbody>
@@ -18,6 +19,13 @@ export default function ScheduleTable({ schedule }) {
             <td>{job.completionTime}</td>
             <td>{job.waitingTime}</td>
             <td>{job.turnaroundTime}</td>
+            {showML && (
+              <td>
+                {predictions[job.id]?.delayed
+                  ? "⚠️ Likely Delayed"
+                  : "✅ OK"}
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

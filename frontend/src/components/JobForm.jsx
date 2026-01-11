@@ -12,6 +12,7 @@ export default function JobForm() {
   const submit = async () => {
     await createJob({
       ...job,
+      id: String(job.id),
       arrivalTime: Number(job.arrivalTime),
       burstTime: Number(job.burstTime),
       priority: Number(job.priority)
