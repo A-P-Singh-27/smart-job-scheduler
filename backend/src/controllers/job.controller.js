@@ -2,8 +2,8 @@ const Job = require('../models/job.model');
 
 exports.createJob = async (req, res) => {
     try {
-        const { arrivalTime, burstTime, priority } = req.body;
-        const job = new Job({ arrivalTime, burstTime, priority });
+        const { id, arrivalTime, burstTime, priority } = req.body;
+        const job = new Job({ arrivalTime, burstTime, priority, id});
         await job.save();
         res.status(201).json(job);
     } catch (error) {

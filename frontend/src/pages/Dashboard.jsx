@@ -14,15 +14,16 @@ export default function Dashboard() {
       const res = await getSchedule();
       setData(res.data);
 
-      // 🔮 ML prediction (run once per job)
+      // ML prediction (run once per job)
       const predictionMap = {};
 
       for (const job of res.data.fcfs.schedule) {
         const response = await predictDelay({
           burstTime: job.burstTime,
-          priority: job.priority
+          priority: job.priority,
+          algorithm: "fcfs"
         });
-
+        
         predictionMap[job.id] = response.data;
       }
 
@@ -46,27 +47,41 @@ export default function Dashboard() {
 
       <h3>FCFS</h3>
       <ScheduleTable
-        schedule={data.fcfs.schedule}
-        predictions={predictions}
-        showML={showML}
-      />
+  schedule={data.fcfs.schedule}
+  predictions={predictions}
+  showML={showML}
+  algo="fcfs"
+/>
       <MetricsChart metrics={data.fcfs.metrics} />
 
-      <h3>SJF</h3>
-      <ScheduleTable
-        schedule={data.sjf.schedule}
-        predictions={predictions}
-        showML={showML}
-      />
+      
+<ScheduleTable
+  schedule={data.sjf.schedule}
+  predictions={predictions}
+  showML={showML}
+  algo="sjf"
+/>
+
       <MetricsChart metrics={data.sjf.metrics} />
 
       <h3>Priority</h3>
       <ScheduleTable
-        schedule={data.priority.schedule}
-        predictions={predictions}
-        showML={showML}
-      />
+  schedule={data.priority.schedule}
+  predictions={predictions}
+  showML={showML}
+  algo="priority"
+/>
+
       <MetricsChart metrics={data.priority.metrics} />
+      
+      <h3>preemptivePriorityResult</h3>
+      <ScheduleTable
+  schedule={data.preemptivePriority.schedule}
+  predictions={predictions}
+  showML={showML}
+  algo="priority"
+/>
+      <MetricsChart metrics={data.preemptivePriority.metrics} />
     </div>
   );
 }
