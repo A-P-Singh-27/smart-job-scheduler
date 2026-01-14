@@ -33,7 +33,37 @@ export default function Dashboard() {
     loadData();
   }, []);
 
-  if (!data) return <p>Loading...</p>;
+ const getBestAlgorithm = (data) => {
+  if (!data) return null;
+
+  const algorithms = [
+    { name: "FCFS", key: "fcfs" },
+    { name: "SJF", key: "sjf" },
+    { name: "Priority", key: "priority" },
+    { name: "Preemptive Priority", key: "preemptivePriority" }
+  ];
+
+  let best = null;
+
+  for (const algo of algorithms) {
+    const avgWaiting = data[algo.key].metrics.averageWaitingTime;
+
+    if (!best || avgWaiting < best.avgWaiting) {
+      best = {
+        name: algo.name,
+        avgWaiting
+      };
+    }
+  }
+
+  return best;
+};
+
+
+
+
+if (!data) return <p>Loading...</p>;
+const bestAlgorithm = getBestAlgorithm(data);
 
   return (
     <div>
@@ -43,7 +73,20 @@ export default function Dashboard() {
       <button name="toggle" onClick={() => setShowML(!showML)}>
   {showML ? "Hide ML Warnings" : "Show ML Warnings"}
 </button>
+    <div style={{
+  margin: "16px 0",
+  padding: "12px",
+  border: "2px solid green",
+}}>
+  <h3>✅ Recommended Algorithm</h3>
+  <p>
+    <strong>{bestAlgorithm.name}</strong> performs best for this workload
+    with an average waiting time of{" "}
+    <strong>{bestAlgorithm.avgWaiting.toFixed(2)}</strong>.
+  </p>
+</div>
 
+  <h2>OS Algorithms: </h2>
 
       <h3>FCFS</h3>
       <ScheduleTable
