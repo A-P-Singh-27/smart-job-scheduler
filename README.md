@@ -121,6 +121,7 @@ Each layer is modular and independently testable.
 
 ```bash
 docker-compose up --build
+```
 
 
 Frontend → http://localhost:5173
@@ -153,8 +154,6 @@ Historical workload analysis
 
 Configurable metric weights
 
----
-
 ## 👤 Author
 
 **Aditya Pratap Singh**  
@@ -166,6 +165,7 @@ Madan Mohan Malaviya University of Technology, Gorakhpur
 - Interested in Operating Systems, Backend Engineering, and Applied ML
 
 ---
+
 
 
 
