@@ -101,15 +101,28 @@ The system does **not blindly favor the lowest average waiting time**.
 
 ## 🧩 System Architecture
 
-Frontend (React)
-↓
-Backend API (Express)
-↓
-Scheduler Engine (OS Logic)
-↓
-Metrics Analyzer
-↓
-ML Prediction Layer (Python)
+┌───────────────────────┐
+│   Frontend (React)    │
+└───────────┬───────────┘
+            ↓
+┌───────────────────────┐
+│ Backend API (Express) │
+└───────────┬───────────┘
+            ↓
+┌───────────────────────┐
+│ Scheduler Engine      │
+│ (OS Logic)            │
+└───────────┬───────────┘
+            ↓
+┌───────────────────────┐
+│ Metrics Analyzer      │
+└───────────┬───────────┘
+            ↓
+┌───────────────────────┐
+│ ML Prediction Layer   │
+│ (Python)              │
+└───────────────────────┘
+
 
 
 Each layer is modular and independently testable.
@@ -175,3 +188,4 @@ Madan Mohan Malaviya University of Technology, Gorakhpur
 - Interested in Operating Systems, Backend Engineering, and Applied ML
 
 ---
+
