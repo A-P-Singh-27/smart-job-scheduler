@@ -101,32 +101,7 @@ The system does **not blindly favor the lowest average waiting time**.
 
 ## 🧩 System Architecture
 
-```mermaid
-flowchart TD
-    A["User Interface\n(React Frontend)"] --> B["Backend API\n(Express.js)"]
-
-    B --> C["Scheduler Engine\n(OS Logic)"]
-
-    C --> D["CPU Scheduling Algorithms"]
-    D --> D1["FCFS"]
-    D --> D2["SJF"]
-    D --> D3["Priority"]
-    D --> D4["Preemptive Priority"]
-
-    C --> E["Metrics Analyzer"]
-    E --> E1["Waiting Time"]
-    E --> E2["Turnaround Time"]
-    E --> E3["Throughput"]
-
-    E --> F["ML Prediction Layer\n(Python)"]
-    F --> F1["Delay Prediction"]
-    F --> F2["Delay Warning"]
-
-    F --> G["Decision Support"]
-    G --> G1["Best Algorithm Recommendation"]
-    G --> G2["Job Delay Insights"]
-
-    G --> A
+Frontend (React) → Backend API (Express) → Scheduler Engine → Metrics Analyzer → ML Prediction Layer (Python)
 
 Each layer is modular and independently testable.
 
@@ -191,6 +166,7 @@ Madan Mohan Malaviya University of Technology, Gorakhpur
 - Interested in Operating Systems, Backend Engineering, and Applied ML
 
 ---
+
 
 
 
