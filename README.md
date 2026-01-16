@@ -101,27 +101,34 @@ The system does **not blindly favor the lowest average waiting time**.
 
 ## 🧩 System Architecture
 
-┌───────────────────────┐
-│   Frontend (React)    │
-└───────────┬───────────┘
-            ↓
-┌───────────────────────┐
-│ Backend API (Express) │
-└───────────┬───────────┘
-            ↓
-┌───────────────────────┐
-│ Scheduler Engine      │
-│ (OS Logic)            │
-└───────────┬───────────┘
-            ↓
-┌───────────────────────┐
-│ Metrics Analyzer      │
-└───────────┬───────────┘
-            ↓
-┌───────────────────────┐
-│ ML Prediction Layer   │
-│ (Python)              │
-└───────────────────────┘
+## 🔄 System Flowchart
+
+```mermaid
+flowchart TD
+    A[User Interface<br/>(React Frontend)] --> B[Backend API<br/>(Express.js)]
+    
+    B --> C[Scheduler Engine<br/>(OS Scheduling Logic)]
+    
+    C --> D[CPU Scheduling Algorithms]
+    D --> D1[FCFS]
+    D --> D2[SJF]
+    D --> D3[Priority]
+    D --> D4[Preemptive Priority]
+
+    C --> E[Metrics Analyzer]
+    E --> E1[Waiting Time]
+    E --> E2[Turnaround Time]
+    E --> E3[Throughput]
+
+    E --> F[ML Prediction Layer<br/>(Python)]
+    F --> F1[Delay Prediction]
+    F --> F2[Delay Warning Flag]
+
+    F --> G[Decision Support Output]
+    G --> G1[Algorithm Recommendation]
+    G --> G2[Job Delay Highlights]
+
+    G --> A
 
 
 
@@ -188,4 +195,5 @@ Madan Mohan Malaviya University of Technology, Gorakhpur
 - Interested in Operating Systems, Backend Engineering, and Applied ML
 
 ---
+
 
