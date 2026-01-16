@@ -66,13 +66,13 @@ The system does **not blindly favor the lowest average waiting time**.
 
 ---
 
-### 🧠 Decision Support System
+## 🧠 Decision Support System
 
-- Compares all algorithms on the same workload
-- Recommends the **best scheduling algorithm**
+- Compares all scheduling algorithms on the same workload
+- Recommends the best scheduling algorithm
 - Recommendation is based on:
-  - Average Waiting Time (primary indicator)
-  - Observed fairness behavior (visual support)
+  - **Average Waiting Time** (primary indicator)
+  - **Observed fairness behavior** (visual support)
 
 ---
 
@@ -127,9 +127,6 @@ flowchart TD
     G --> G2["Job Delay Insights"]
 
     G --> A
-
-
-
 
 Each layer is modular and independently testable.
 
@@ -194,6 +191,7 @@ Madan Mohan Malaviya University of Technology, Gorakhpur
 - Interested in Operating Systems, Backend Engineering, and Applied ML
 
 ---
+
 
 
 
