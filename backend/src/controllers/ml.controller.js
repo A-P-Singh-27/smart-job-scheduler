@@ -5,7 +5,7 @@ exports.predictDelay = (req, res) => {
   try {
     const { burstTime, priority } = req.body;
 
-    const scriptPath = path.join(__dirname, "../../../ml/predict.py");
+    const scriptPath = path.join(__dirname, "../../ml/predict.py");
 
     const algoMap = {
       fcfs: 0,
@@ -16,8 +16,12 @@ exports.predictDelay = (req, res) => {
     const result = {};
 
     for (const [algo, code] of Object.entries(algoMap)) {
+      // const output = execSync(
+      //   `python3 "${scriptPath}" ${burstTime} ${priority} ${code}`,
+      //   { encoding: "utf-8" }
+      // );
       const output = execSync(
-        `python "${scriptPath}" ${burstTime} ${priority} ${code}`,
+        `python3 "/${scriptPath}" ${burstTime} ${priority} ${code}`,
         { encoding: "utf-8" }
       );
 

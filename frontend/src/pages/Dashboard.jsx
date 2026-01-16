@@ -33,7 +33,24 @@ export default function Dashboard() {
     loadData();
   }, []);
 
- const getBestAlgorithm = (data) => {
+  const STARVATION_LIMIT = 10;
+
+const analyzeSchedule = (schedule) => {
+  let starvationCount = 0;
+  let maxWaitingTime = 0;
+
+  for (const job of schedule) {
+    if (job.waitingTime > STARVATION_LIMIT) {
+      starvationCount++;
+    }
+    maxWaitingTime = Math.max(maxWaitingTime, job.waitingTime);
+  }
+
+  return { starvationCount, maxWaitingTime };
+};
+
+
+const getBestAlgorithm = (data) => {
   if (!data) return null;
 
   const algorithms = [
@@ -46,18 +63,38 @@ export default function Dashboard() {
   let best = null;
 
   for (const algo of algorithms) {
-    const avgWaiting = data[algo.key].metrics.averageWaitingTime;
+    const metrics = data[algo.key].metrics;
+    const schedule = data[algo.key].schedule;
 
-    if (!best || avgWaiting < best.avgWaiting) {
+    const { starvationCount, maxWaitingTime } =
+      analyzeSchedule(schedule);
+
+    const contextSwitches = metrics.contextSwitches ?? 0;
+
+    const score =
+      metrics.averageWaitingTime * 1.0 +
+      metrics.averageTurnaroundTime * 0.7 +
+      maxWaitingTime * 1.5 +
+      starvationCount * 5 +
+      contextSwitches * 2;
+
+    if (!best || score < best.score) {
       best = {
         name: algo.name,
-        avgWaiting
+        score,
+        details: {
+          avgWaiting: metrics.averageWaitingTime,
+          avgTurnaround: metrics.averageTurnaroundTime,
+          starvationCount,
+          contextSwitches
+        }
       };
     }
   }
 
   return best;
 };
+
 
 
 
@@ -80,10 +117,12 @@ const bestAlgorithm = getBestAlgorithm(data);
 }}>
   <h3>✅ Recommended Algorithm</h3>
   <p>
-    <strong>{bestAlgorithm.name}</strong> performs best for this workload
-    with an average waiting time of{" "}
-    <strong>{bestAlgorithm.avgWaiting.toFixed(2)}</strong>.
-  </p>
+  <strong>{bestAlgorithm?.name}</strong> performs best based on
+  efficiency, fairness, and system overhead.
+</p>
+<p>
+  Composite Score: <strong>{bestAlgorithm?.score.toFixed(2)}</strong>
+</p>
 </div>
 
   <h2>OS Algorithms: </h2>

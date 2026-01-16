@@ -6,7 +6,7 @@ export default function JobForm() {
     id: "",
     arrivalTime: "",
     burstTime: "",
-    priority: ""
+    priority: "",
   });
 
   const submit = async () => {
@@ -15,7 +15,7 @@ export default function JobForm() {
       id: String(job.id),
       arrivalTime: Number(job.arrivalTime),
       burstTime: Number(job.burstTime),
-      priority: Number(job.priority)
+      priority: Number(job.priority),
     });
     alert("Job added");
   };

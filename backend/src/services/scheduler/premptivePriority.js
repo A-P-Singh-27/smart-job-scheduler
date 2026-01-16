@@ -1,16 +1,16 @@
 function preemptivePriorityScheduler(jobs) {
-  const remainingJobs = jobs.map(job => ({
+  const remainingJobs = jobs.map((job) => ({
     ...job,
-    remainingTime: job.burstTime
+    remainingTime: job.burstTime,
   }));
 
   const scheduledJobs = [];
   let currentTime = 0;
   let lastJobId = null;
 
-  while (remainingJobs.some(job => job.remainingTime > 0)) {
+  while (remainingJobs.some((job) => job.remainingTime > 0)) {
     const availableJobs = remainingJobs.filter(
-      job => job.arrivalTime <= currentTime && job.remainingTime > 0
+      (job) => job.arrivalTime <= currentTime && job.remainingTime > 0
     );
 
     if (availableJobs.length === 0) {
@@ -24,7 +24,7 @@ function preemptivePriorityScheduler(jobs) {
     if (job.id !== lastJobId) {
       scheduledJobs.push({
         id: job.id,
-        startTime: currentTime
+        startTime: currentTime,
       });
       lastJobId = job.id;
     }
